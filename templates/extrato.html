@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block sub_content %}
+
+<div class="page-header">
+  <h2>Extratos de Conta</h2>
+</div>
+
+<form method="POST">
+  <div class="panel-body">
+    <b>Digite a data Inicial(yyyy-mm-dd)<br>
+      <input type="text"  name="datai">
+      <br><br>
+      <b>Digite a data Final(yyyy-mm-dd)<br>
+        <input type="text"  name="dataf">
+        <br><br>
+        <b>Selecione a Conta de Origem</b>:
+        <select class="form-control" name="conta">
+          {% for row in contas %}
+          <option value="{{ row[0] }}"{% if row[0] == state_categ.choice_categ %} selected{% endif %}>{{ row[1] }}</option>
+          {% endfor %}
+        </select>
+        <br>
+        <p>------------------------------------------------------------</b>
+          <input type ="submit" name="action" value="GerarExtrato">
+          <br><br>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th> ID </th>
+                <th> Data </th>
+                <th> Tipo </th>
+                <th> Conta </th>
+                <th> Categoria </th>
+                <th> Subcategoria </th>
+                <th> Valor </th>
+                <th> Obs </th>
+              <tr>
+            </thead>
+            {% for row in statem %}
+            <tr>
+              <td> {{ row[0] }} </td>
+              <td> {{ row[1] }} </td>
+              <td> {{ row[2] }} </td>
+              <td> {{ row[3] }} </td>
+              <td> {{ row[4] }} </td>
+              <td> {{ row[5] }} </td>
+              <td> {{ row[6] }} </td>
+              <td> {{ row[7] }} </td>
+              <td> {{ row[8] }} </td>
+            </tr>
+            {% endfor %}
+          </table>
+  </div>
+</form>
+{% endblock %}

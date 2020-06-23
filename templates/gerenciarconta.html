@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  </head>
+</html>
+
+{% extends "base.html" %}
+{% block sub_content %}
+
+<div class="page-header">
+  <h2>Gerenciar Conta</h2>
+</div>
+<br>
+
+<form id="package_form" action="" method="POST">
+  <h3>Criar Conta</h3>
+  <div class="panel-body">
+    <b>Digite um nome para Conta (sem epaços)</b><br>
+    <input type="text"  name="nome"><br>
+    
+    <b>Digite o Saldo da Conta</b><br>
+    <input type="float" name="saldo" ><br><br>
+    
+    <input type ="submit" name="action" value="Cadastrar">
+    <br> <hr>
+
+    <h3>Excluir Conta</h3>
+    <b>Digite o Nome da Conta</b> <br>
+    <input type="text" name="nome2"> <br><br>
+    <input type ="submit" name="action" value="Excluir">
+  </div>
+</form>
+<hr>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, msg in messages %}
+<div class="alert alert-{{ category }}"> {{ msg }}
+</div>
+{% endfor %}
+{% endif%}
+{% endwith %}
+
+
+{% endblock %}

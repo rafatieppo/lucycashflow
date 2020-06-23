@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  </head>
+</html>
+
+{% extends "base.html" %}
+{% block sub_content %}
+
+<div class="page-header">
+  <h2>Excluir Transacoes</h2>
+</div>
+<br>
+
+<form id="package_form" action="" method="POST">
+  <h3>Excluir Transacao</h3>
+
+  <b>Selecione a Conta</b>
+  <select class="form-control" name="conta">
+    {% for row in contas %}
+    <option value="{{ row[0] }}"{% if row[0] == state_categ.choice_categ %} selected{% endif %}>{{ row[1] }}</option>
+    {% endfor %}
+  </select>
+  <br>
+  
+  <b>Digite o ID da Transacao</b> <br>
+  ID :<input type="text" name="idd"> <br><br>
+  <input type ="submit" name="action" value="ExcluirTransacao">
+  <br>
+  <br>
+  <hr>
+
+  <h3>Excluir Transferencia</h3>
+
+  <b>Selecione a Conta:</b>
+  <select class="form-control" name="contat">
+    {% for row in contas %}
+    <option value="{{ row[0] }}"{% if row[0] == state_categ.choice_categ %} selected{% endif %}>{{ row[1] }}</option>
+    {% endfor %}
+  </select>
+  <br>
+  
+  <b>Digite o ID da Transferencia</b> <br>
+  ID :<input type="text" name="iddt"> <br><br>
+  <input type ="submit" name="action" value="ExcluirTransferencia">
+  <br>
+  <br>
+
+
+
+</form>
+
+{% endblock %}

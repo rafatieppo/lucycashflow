@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block sub_content %}
+
+<div class="page-header">
+  <h2>Lançamentos de Entradas e Saídas</h2>
+</div>
+
+<form method="POST">
+  
+  <div class="panel-body">
+    <b>Digite a data (yyyy-mm-dd)<br>
+      <input type="text"  name="data">
+    <br><br>
+
+    <b>Selecione Conta</b>
+    <select class="form-control" name="conta">
+      {% for row in contas %}
+      <option value="{{ row[0] }}"{% if row[0] == state_categ.choice_categ %} selected{% endif %}>{{ row[1] }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    
+    <b>Selecione o Tipo do lançamento</b>
+    <select class="form-control" type="text" name="tipo">
+      {% for row in tipos %}
+      <option value="{{ row[0] }}"{% if row[0] == state_categ.choice_categ %} selected{% endif %}>{{ row[1] }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    
+    <b>Selecione a Categoria</b>
+    <select class="form-control" name="categoria">
+      {% for row in categorias %}
+      <option value="{{ row[0] }}"{% if row[0] == state_categ.choice_categ %} selected{% endif %}>{{ row[1] }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    
+    <b>Selecione a SubCategoria</b>
+    <select class="form-control" name="subs">
+      {% for row in subs %}
+      <option value="{{ row[0] }}"{% if row[0] == state_categ.choice_categ %} selected{% endif %}>{{ row[1] }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    
+    <b>Digite o Valor</b><br>
+    <input type="text" name="valor" >
+    <br><br>
+    
+    <b>Observação</b><br>
+    <input type="text" name="obs" ><br><br>
+    
+    <input type ="submit" name="action" value="Lancar">
+    <br><br>
+  </div>
+</form>
+{% endblock %}
