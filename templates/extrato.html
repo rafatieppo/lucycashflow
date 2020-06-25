@@ -20,11 +20,18 @@
           {% endfor %}
         </select>
         <br>
-        <p>------------------------------------------------------------</b>
-          <input type ="submit" name="action" value="GerarExtrato">
-          <br><br>
-          <table class="table table-striped">
-            <thead>
+        <input type ="submit" name="action" value="GerarExtrato">
+        <br><br>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, msg in messages %}
+        <div class="alert alert-{{ category }}"> {{ msg }}
+        </div>
+        {% endfor %}
+        {% endif%}
+        {% endwith %}
+            <table class="table table-striped">
+              <thead>
               <tr>
                 <th> ID </th>
                 <th> Data </th>
@@ -49,7 +56,7 @@
               <td> {{ row[8] }} </td>
             </tr>
             {% endfor %}
-          </table>
+            </table>
   </div>
 </form>
 {% endblock %}

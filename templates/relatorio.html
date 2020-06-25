@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block sub_content %}
+
+<div class="page-header">
+  <h2>Relatórios de despesas e receitas</h2>
+</div>
+
+<form method="POST">
+  <div class="panel-body">
+    <b>Digite a data Inicial(yyyy-mm-dd)<br>
+      <input type="text"  name="datai">
+      <br><br>
+      <b>Digite a data Final(yyyy-mm-dd)<br>
+        <input type="text"  name="dataf">
+        <br><br>
+        </select>
+        <br>
+        <input type ="submit" name="action" value="GerarRelatorio">
+        <br><br>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, msg in messages %}
+            <div class="alert alert-{{ category }}"> {{ msg }}
+            </div>
+            {% endfor %}
+          {% endif%}
+        {% endwith %}
+            <hr> <h3>Saldo das contas</h3>
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th> Conta </th>
+                <th> Saldo </th>
+              <tr>
+            </thead>
+            {% for row in bal_allacc %}
+            <tr>
+              <td> {{ row[0] }} </td>
+              <td> {{ row[1] }} </td>
+            </tr>
+            {% endfor %}
+            </table>
+  </div>
+</form>
+{% endblock %}

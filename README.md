@@ -11,7 +11,7 @@
 
 ## Como usar
 
-## Instalção
+## Instalação
 
 ## Como executar o programa
 
@@ -22,16 +22,31 @@
 - DONE Backend transações banco de dados SQLite3;
 - DONE Estrutura FLASK
 - TODO Fazer lógica para para excluir as transferencias correlatas
-- TODO Relatórios [0%]
-  - [ ] Backend saldo
-  - [ ] Frontend saldo
-  - [ ] Backend extrato
-  - [ ] Frontend extrato
+- TODO Relatórios [55%]
+  - [X] Backend saldo
+  - [X] Frontend saldo
+  - [X] Backend extrato
+  - [X] Frontend extrato
+  - [X] Saldo agrupado por conta
+  - [ ] Balanco de entradas e saídas por mês
+  - [ ] Balanco de entradas e saídas por mês (gráfico)
+  - [ ] Despesas por categorias
+  - [ ] Despesas por subcategorias
+  
   
 
 ## Logs 
 <a name="logss"></a> 
 
+
+### Thu 2020-06-25 06:18:14 -04
+- Criado `html` para relatórios com menu. Saldo por contas implementado
+no Frontend e Backend.
+
+### Tue 2020-06-23 23:31:27 -04
+- Extrato por período com saldo implementado no `extrato.html` e no
+`app_lucycashflow.py`. As queries utilizadas estão em
+`./models/genextratos.py`. 
 
 ### Mon 2020-18-22 22:10:37 -04
 - Primeiro README

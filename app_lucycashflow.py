@@ -10,8 +10,7 @@ from models.managacount import managacount
 from models.managtransac import managtransac
 from models.managtransf import managtransf
 from models.genextratos import genextratos
-
-
+from models.genrelatorios import genrelatorios
 from flask import Flask
 from flask import render_template
 from flask import request, flash
@@ -36,6 +35,32 @@ def index():
     return render_template('index.html')
 
 
+@app.route("/relatorio", methods=["GET", "POST"])
+def relatorio():
+    connection = cdb.fconnecta()
+    conf = config_db(connection)
+    conf.config()
+    # get bank statement from db
+    if request.method == "POST" and request.form['action'] == 'GerarRelatorio':
+        di = request.form.get('datai', False)
+        df = request.form.get('dataf', False)
+        connection = cdb.fconnecta()
+        conf = config_db(connection)
+        conf.config()
+        reports_all = genrelatorios(connection, di, df)
+        bal_allacc = reports_all.balance_allacc()
+        if bal_allacc[0][1] is None:
+            flash(' - Não há transações entre  ** ' + di + ' ** e ** ' + df +
+                  '**')
+        else:
+            flash(' - Relatório de ** ' + di + ' ** a ** ' + df +
+                  '** gerado com sucesso ', 'info')
+        return render_template('relatorio.html',
+                               bal_allacc=bal_allacc)
+    else:
+        return render_template('relatorio.html')
+
+
 @app.route("/extrato", methods=["GET", "POST"])
 def extrato():
     connection = cdb.fconnecta()
@@ -56,12 +81,20 @@ def extrato():
         connection = cdb.fconnecta()
         conf = config_db(connection)
         conf.config()
-        statem_count = genextratos(connection)
-        statem = statem_count.ext_bycount(cc, di, df)
+        statem_count = genextratos(connection, cc, di, df)
+        statem = statem_count.ext_bycount()
+        balance = statem_count.saldo_bycount()
+        if balance[0][1] is not None:
+            balance = str(float(balance[0][1]))
+        else:
+            balance = ''
+        flash(' - Extrato de ** ' + di + ' ** a ** ' + df +
+              '**  -------> SALDO: $ ' + balance, 'info')
         return render_template('extrato.html',
                                contas=contas,
                                state_categ=state_categ,
-                               statem=statem)
+                               statem=statem,
+                               balance=balance)
     else:
         return render_template('extrato.html',
                                contas=contas,

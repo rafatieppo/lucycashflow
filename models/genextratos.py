@@ -6,14 +6,14 @@
 
 
 class genextratos:
-    def __init__(self, connection):
+    def __init__(self, connection, nome, di, df):
         self.connection = connection
-
-    def ext_bycount(self, nome, di, df):
-        connection = self.connection
         self.nome = nome
         self.di = di
         self.df = df
+
+    def ext_bycount(self):
+        connection = self.connection
         with connection:
             cursor = connection.cursor()
             query = """
@@ -37,10 +37,32 @@ class genextratos:
                 INNER JOIN tipo ON transferencia.tipo_id=tipo.tipo_id 
                 WHERE conta.conta_id=? AND data >=? AND data <=?;
                 """
-            result = cursor.execute(query, (nome, di, df, nome, di, df))
+            result = cursor.execute(
+                query, (self.nome, self.di, self.df, self.nome, self.di, self.df))
             row = result.fetchall()
             if row is not None:
-                print('Extrato gerado pela query')
+                print('Extrato gerado com sucesso')
                 return row
             else:
                 print('Nao foi possivel gerar extrato')
+
+    def saldo_bycount(self):
+        connection = self.connection
+        with connection:
+            cursor = connection.cursor()
+            query = """
+            SELECT ID, SUM(valor) FROM (
+            SELECT 1 as ID, SUM(valor) AS valor FROM transacao
+            WHERE transacao.conta_id=? AND data >=? AND data <=?
+            UNION ALL
+            SELECT 1 as ID,  SUM(valor) AS valor FROM transferencia
+            WHERE transferencia.conta_id=? AND data >=? AND data <=?);
+            """
+            result = cursor.execute(
+                query, (self.nome, self.di, self.df, self.nome, self.di, self.df))
+            row = result.fetchall()
+            if row is not None:
+                print('Saldo gerado com sucesso')
+                return row
+            else:
+                print('Nao foi possivel gerar saldo')
