@@ -154,10 +154,10 @@ class populate_tables:
             if len(row) > 0:
                 print("\n Tabela categoria preenchida \n")
             else:
-                ls_fill = ['emprestimo', 'investimento', 'moradia',
-                           'outros', 'pessoal', 'salario', 'txbancaria',
-                           'veiculo', 'viagem']
-                ls_fk = [1, 2, 1, 1, 1, 2, 1, 1, 1]
+                ls_fill = ['emprestimo', 'moradia', 'outrasdespesas',
+                           'outrosrendimentos', 'pessoal', 'salario',
+                           'txbancaria', 'veiculo', 'viagem']
+                ls_fk = [1, 1, 1, 2, 1, 2, 1, 1, 1]
                 for i in range(len(ls_fill)):
                     ins = str("INSERT INTO categoria VALUES (NULL, '" +
                               str(ls_fk[i]) + "', "+"'" + ls_fill[i] + "')")
@@ -174,19 +174,25 @@ class populate_tables:
             if len(row) > 0:
                 print("\n Tabela subcategoria preenchida \n")
             else:
-                ls_fill = ['job01', 'job02', 'job03',
-                           'aluguel', 'aplicacao', 'bolsa',
-                           'juro', 'principal',
+                ls_fill = ['juro', 'principal',
                            'agua', 'aluguel', 'energia', 'internet', 'manutencao', 'mercado', 'prestacao', 'telefonia',
-                           'bike', 'computador', 'eletronico', 'emprestimo', 'geral',
+                           'bike', 'computador', 'eletronico', 'emprestimo', 'geral', 'presente',
+                           'aluguel', 'aplicacao', 'bolsa', 'devolucaoimposto',
                            'alimentacao', 'calcado', 'celular', 'educacao', 'higsaude', 'lazer',
                            'livrorevista', 'vestuario', 'trabalho',
+                           'job01', 'job02', 'job03',
                            'anuidade', 'juro',
                            'documentacao', 'combustivel', 'manutencao', 'seguro',
                            'estadia', 'refeicao', 'transporte']
-                ls_fk = [6, 6, 6, 2, 2, 2, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3,
-                         4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5,
-                         7, 7, 8, 8, 8, 8, 9, 9, 9]
+                ls_fk = [1, 1,
+                         2, 2, 2, 2, 2, 2, 2, 2,
+                         3, 3, 3, 3, 3, 3,
+                         4, 4, 4, 4,
+                         5, 5, 5, 5, 5, 5, 5, 5, 5,
+                         6, 6, 6,
+                         7, 7,
+                         8, 8, 8, 8,
+                         9, 9, 9]
                 for i in range(len(ls_fill)):
                     ins = str("INSERT INTO subcategoria VALUES (NULL, " +
                               str(ls_fk[i]) + ",'" + ls_fill[i] + "')")
