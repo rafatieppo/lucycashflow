@@ -13,12 +13,12 @@ from models.genextratos import genextratos
 from models.genrelatorios import genrelatorios
 from flask import Flask
 from flask import render_template
-from flask import request, flash
+from flask import request, flash, jsonify
 # url_for, redirect
-
-
 from flask_bootstrap import Bootstrap
 import os
+import pandas as pd
+import json
 
 
 # connecting
@@ -40,25 +40,71 @@ def relatorio():
     connection = cdb.fconnecta()
     conf = config_db(connection)
     conf.config()
-    # get bank statement from db
+    di = request.form.get('datai', False)
+    df = request.form.get('dataf', False)
+    connection = cdb.fconnecta()
+    conf = config_db(connection)
+    conf.config()
+    reports_all = genrelatorios(connection, di, df)
+    bal_overall = reports_all.balance_overall()
+    bal_allacc = reports_all.balance_allacc()
+    # ------------------------------------------------------------
+    # labels = ["January", "February", "March",
+    #           "April", "May", "June", "July", "August"]
+    # values = [10, 9, 8, 7, 6, 4, 7, 8]
+    # ------------------------------------------------------------
+    # input output balance by month
     if request.method == "POST" and request.form['action'] == 'GerarRelatorio':
-        di = request.form.get('datai', False)
-        df = request.form.get('dataf', False)
-        connection = cdb.fconnecta()
-        conf = config_db(connection)
-        conf.config()
-        reports_all = genrelatorios(connection, di, df)
-        bal_allacc = reports_all.balance_allacc()
-        if bal_allacc[0][1] is None:
+        inoutbalmonth = reports_all.inout_month()
+        ls_dt = []
+        ls_ty = []
+        ls_vl = []
+        for i in range(len(inoutbalmonth)):
+            ls_dt.append(inoutbalmonth[i][0])
+            ls_ty.append(inoutbalmonth[i][1])
+            ls_vl.append(inoutbalmonth[i][2])
+        df_inoutbalmonth = pd.DataFrame({'data': ls_dt,
+                                         'tipo': ls_ty,
+                                         'valor': ls_vl})
+        legend = 'Monthly Data'
+        df_inoutbalmonth = df_inoutbalmonth.query(
+            'tipo != "saldo"').reset_index()
+        # labels = list(df_inoutbalmonth['data'])
+        # values = list(map(abs, list(df_inoutbalmonth['valor'])))
+        maxx = 200
+        # maxx = max(values) * 1.3
+        xx = df_inoutbalmonth.pivot_table(index='data',
+                                          values='valor',
+                                          columns='tipo',
+                                          fill_value=0)
+        labels = list(xx.index)
+        despesas = list(map(abs, xx['despesa']))
+        receitas = list(map(abs, xx['receita']))
+
+        if inoutbalmonth is None:
             flash(' - Não há transações entre  ** ' + di + ' ** e ** ' + df +
                   '**')
         else:
             flash(' - Relatório de ** ' + di + ' ** a ** ' + df +
-                  '** gerado com sucesso ', 'info')
+                  '** ', 'info')
         return render_template('relatorio.html',
-                               bal_allacc=bal_allacc)
+                               bal_allacc=bal_allacc,
+                               bal_overall=bal_overall,
+                               inoutbalmonth=inoutbalmonth,
+                               df_inoutbalmonth=df_inoutbalmonth,
+                               labels=labels, despesas=despesas,
+                               receitas=receitas)
+    # max=maxx, values=values,
+    # ls_fillcolor=ls_fillcolor)
     else:
-        return render_template('relatorio.html')
+        return render_template('relatorio.html',
+                               bal_allacc=bal_allacc,
+                               bal_overall=bal_overall)
+        # inoutbalmonth=inoutbalmonth,
+        # df_inoutbalmonth=df_inoutbalmonth,
+        # labels=labels, max=maxx, values=values,
+        # ls_fillcolor=ls_fillcolor,
+        # despesas=despesas, receitas=receitas)
 
 
 @app.route("/extrato", methods=["GET", "POST"])

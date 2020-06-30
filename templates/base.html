@@ -1,19 +1,25 @@
 {% extends "bootstrap/base.html" %}
 
-    {% block title %}
-    app lucycashflow
-    {% endblock  %}
+{% block scripts %}
+{{ super() }}
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+{% endblock %}
 
-    {% block navbar %}
-    {% include '_navbar.html' %}
-    {% endblock  %}
+{% block title %}
+app lucycashflow
+{% endblock  %}
 
-    {% block content %}
-    {% block sub_content  %}
-    {% endblock %}
-    {% endblock %}
 
-    
+{% block navbar %}
+{% include '_navbar.html' %}
+{% endblock  %}
+
+{% block content %}
+{% block sub_content  %}
+{% endblock %}
+{% endblock %}
+
   </body>
 </html>
 
