@@ -11,7 +11,7 @@ I would like to learn how to handle with databases, html, and
 requests. I tough that a simple and small project could be useful to
 improve my skills about computer science. Thus I tried to provide an
 open source program for personal finances management. Furthermore I can
-archive my spreadsheet and work on mu own program. ;)
+archive my spreadsheet and work on my own program. ;)
 
 Why an app to financial management?
 
@@ -65,7 +65,7 @@ you have fun.
 
 - DONE Modeling DB;
 
-<img src="/models/dbsql_model.png" alt="" width="auto">
+<img src="/models/dbsql_model.png" alt="" width="150">
 
 - DONE Backend for transactions (SQLITE3);
 - DONE FLASK structure
@@ -85,12 +85,14 @@ you have fun.
 ## Logs 
 <a name="logss"></a> 
 
+### Sat 2020-07-04 15:33:50 -04
+- Readme file improvements.
+
 ### Thu 2020-06-30 05:08:06 -04
 - A bar plot (first experience with java script) with monthly cash flow
 is working in `relatorio.html`. The bars show up after period assignment
 and click button. At moment the code is messy. Sub directory were
 created for js library.
-
 
 ### Thu 2020-06-25 06:18:14 -04
 - A `html` with menu were create for period reports. Balance for
