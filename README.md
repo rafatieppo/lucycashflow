@@ -65,7 +65,7 @@ you have fun.
 
 - DONE Modeling DB;
 
-<img src="/models/dbsql_model.png" alt="" width="150">
+<img src="/models/dbsql_model.png" alt="" width="300">
 
 - DONE Backend for transactions (SQLITE3);
 - DONE FLASK structure

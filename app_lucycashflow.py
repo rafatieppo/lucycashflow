@@ -55,6 +55,7 @@ def relatorio():
     # ------------------------------------------------------------
     # input output balance by month
     if request.method == "POST" and request.form['action'] == 'GerarRelatorio':
+        # balance for accounts
         inoutbalmonth = reports_all.inout_month()
         ls_dt = []
         ls_ty = []
@@ -66,13 +67,10 @@ def relatorio():
         df_inoutbalmonth = pd.DataFrame({'data': ls_dt,
                                          'tipo': ls_ty,
                                          'valor': ls_vl})
-        legend = 'Monthly Data'
         df_inoutbalmonth = df_inoutbalmonth.query(
             'tipo != "saldo"').reset_index()
-        # labels = list(df_inoutbalmonth['data'])
-        # values = list(map(abs, list(df_inoutbalmonth['valor'])))
-        maxx = 200
-        # maxx = max(values) * 1.3
+        # js plot
+        maxx = max(ls_vl) * 1.1
         xx = df_inoutbalmonth.pivot_table(index='data',
                                           values='valor',
                                           columns='tipo',
@@ -80,6 +78,11 @@ def relatorio():
         labels = list(xx.index)
         despesas = list(map(abs, xx['despesa']))
         receitas = list(map(abs, xx['receita']))
+
+        # report by categoria
+        expense_categ = reports_all.expenses_categories()
+        # report by categoria
+        expense_subcateg = reports_all.expenses_subcategories()
 
         if inoutbalmonth is None:
             flash(' - Não há transações entre  ** ' + di + ' ** e ** ' + df +
@@ -93,7 +96,9 @@ def relatorio():
                                inoutbalmonth=inoutbalmonth,
                                df_inoutbalmonth=df_inoutbalmonth,
                                labels=labels, despesas=despesas,
-                               receitas=receitas)
+                               receitas=receitas,
+                               expense_categ=expense_categ,
+                               expense_subcateg=expense_subcateg)
     # max=maxx, values=values,
     # ls_fillcolor=ls_fillcolor)
     else:

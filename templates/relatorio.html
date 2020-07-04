@@ -54,7 +54,7 @@
     <center>
       <link href="static/css/demo.css" rel="stylesheet" type="text/css">
       <script src="static/Chart.js"></script>
-      <div class="chart-container" style="position: relative; height:55vh; width:60vw">
+      <div class="chart-container" style="position: relative; height:65vh; width:60vw">
         <canvas id="myChart"></canvas>
       </div>
     </center>
@@ -126,8 +126,45 @@
         <td> {{ row[1] }} </td>
         <td> {{ row[2] }} </td>
         {% endfor %}
-        
     </table>
+
+
+    <h4>Relatório por categoria</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th> Categoria </th>
+          <th> Soma </th>
+          <tr>
+      </thead>
+      {% for row in expense_categ %}
+      <tr>
+        <td> {{ row[0] }} </td>
+        <td> {{ row[1] }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h4>Relatório por SUBcategoria</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th> Categoria </th>
+          <th> Subcategoria </th>
+          <th> Soma </th>
+          <tr>
+      </thead>
+      {% for row in expense_subcateg %}
+      <tr>
+        <td> {{ row[0] }} </td>
+        <td> {{ row[1] }} </td>
+        <td> {{ row[2] }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+    
+
+
     
   </div>
 </form>
