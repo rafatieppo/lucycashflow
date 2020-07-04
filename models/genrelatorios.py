@@ -83,3 +83,44 @@ class genrelatorios:
                 return row
             else:
                 print('Nao ha dados para o periodo')
+
+    def expenses_categories(self):
+        connection = self.connection
+        with connection:
+            cursor = connection.cursor()
+            query = """
+            SELECT categoria.categoria_nome AS categoria, SUM(valor)
+            FROM transacao
+            INNER JOIN categoria ON transacao.categoria_id=categoria.categoria_id
+            WHERE data >=? AND data <=? AND transacao.tipo_id <> 2
+            GROUP BY categoria;
+            """
+            result = cursor.execute(
+                query, (self.di, self.df,))
+            row = result.fetchall()
+            if row is not None:
+                print('Relatorio por categorias gerado com sucesso')
+                return row
+            else:
+                print('Nao ha dados para o periodo')
+
+    def expenses_subcategories(self):
+        connection = self.connection
+        with connection:
+            cursor = connection.cursor()
+            query = """
+            SELECT categoria.categoria_nome AS categoria, subcategoria.subcategoria_nome AS subcategoria, SUM(valor)
+            FROM transacao
+            INNER JOIN categoria ON transacao.categoria_id=categoria.categoria_id
+            INNER JOIN subcategoria ON transacao.subcategoria_id=subcategoria.subcategoria_id
+            WHERE data >=? AND data <=? AND transacao.tipo_id <> 2
+            GROUP BY subcategoria;
+            """
+            result = cursor.execute(
+                query, (self.di, self.df,))
+            row = result.fetchall()
+            if row is not None:
+                print('Relatorio por SUBcategorias gerado com sucesso')
+                return row
+            else:
+                print('Nao ha dados para o periodo')
