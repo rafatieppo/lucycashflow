@@ -1,57 +1,105 @@
 # lucycashflow
 
-## Última atualização
+## Last update
 
-- Versão 1.1
+- Version 1.1
 - *Mon 2020-04-27 19:48:37 -04*, verifique os logs <a href="#logss">aqui</a>.
 
-## Motivação
+## Motivation
 
-## O que faz
+I would like to learn how to handle with databases, html, and
+requests. I tough that a simple and small project could be useful to
+improve my skills about computer science. Thus I tried to provide an
+open source program for personal finances management. Furthermore I can
+archive my spreadsheet and work on mu own program. ;)
 
-## Como usar
+Why an app to financial management?
 
-## Instalação
+Organize financial book is a good way to improve lives. Now days there
+are several on line sheets, apps for mobile, etc. However, once you data
+is in the internet, probably always it will be.
+ 
+Thinking in privacy, `lucyCashflow` was created. It's a quite simple app
+to run in your own personal machine. The functions are store,
+categorize, and report money inputs and outputs. Intending to simplify
+the use, some categories and sub-categories were assigned (the
+categories are in Portuguese, Sorry!):
 
-## Como executar o programa
+## How it works
+
+Its is quite simple. A better instruction is coming soon. 
+
+## Installation
+
+Requirements:
+
+- python3 and packages:
+    - flask
+    - flask_bootstrap
+    - import pandas as pd
+    - json
+- SQLITE3
+
+Usually python3 and SQLITE3 are already available on your operational system. To
+install the libraries you can use `pip3`:
+
+`pip3 install <package name>`
 
 
-## Desenvolvimento
+Download:
 
-- DONE Modelagem Banco de Dados;
-- DONE Backend transações banco de dados SQLite3;
-- DONE Estrutura FLASK
-- TODO Fazer lógica para para excluir as transferencias correlatas
-- TODO Relatórios [77%]
-  - [X] Backend saldo
-  - [X] Frontend saldo
-  - [X] Backend extrato
-  - [X] Frontend extrato
-  - [X] Saldo agrupado por conta
-  - [X] Balanco de entradas e saídas por mês
-  - [X] Balanco de entradas e saídas por mês (gráfico)
-  - [ ] Despesas por categorias
-  - [ ] Despesas por subcategorias
-  
-  
+Create a specific folder for this app. Download the all content from
+GitHub and unzip in the folder that you created.
+
+## How to launch
+
+In terminal, go to the folder that you had created and type:
+
+`python3 app_lucycashflow.py`
+
+It will return a local address like: `http://127.0.0.1:5000/`, just copy
+and paste on your browser (Firefox, Chromium, Chrome, etc). Now I hope
+you have fun.
+
+## Development
+
+- DONE Modeling DB;
+
+<img src="/models/dbsql_model.png" alt="" width="auto">
+
+- DONE Backend for transactions (SQLITE3);
+- DONE FLASK structure
+- TODO Logic for transference 
+- TODO Reports [77%]
+  - [X] Back end balance
+  - [X] Front end balance
+  - [X] Back end bank statement
+  - [X] Front end bank statement
+  - [X] Balance group by account
+  - [X] Monthly cash flow 
+  - [X] Plot monthly cash flow
+  - [ ] Expenses by categories
+  - [ ] Expenses by subcategories
+   
 
 ## Logs 
 <a name="logss"></a> 
 
 ### Thu 2020-06-30 05:08:06 -04
-- Gráfico de barras com entradas e saídas mensais funcionando em java
-script (primeira experiência com js). As barras aparecem após selecionar
-o período e pressionar o botão. O código está bagunçado, mas é o que
-temos no momento. Também foi inserido subpastas com as bibliotecas js.
+- A bar plot (first experience with java script) with monthly cash flow
+is working in `relatorio.html`. The bars show up after period assignment
+and click button. At moment the code is messy. Sub directory were
+created for js library.
+
 
 ### Thu 2020-06-25 06:18:14 -04
-- Criado `html` para relatórios com menu. Saldo por contas implementado
-no Frontend e Backend.
+- A `html` with menu were create for period reports. Balance for
+accounts were implemented on front end and back end
 
 ### Tue 2020-06-23 23:31:27 -04
-- Extrato por período com saldo implementado no `extrato.html` e no
-`app_lucycashflow.py`. As queries utilizadas estão em
+- Period report and balance for each account on `extrato.html` and
+`app_lucycashflow.py`. The queries for it are in
 `./models/genextratos.py`. 
 
 ### Mon 2020-18-22 22:10:37 -04
-- Primeiro README
+- First README
