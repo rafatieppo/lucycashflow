@@ -1,14 +1,29 @@
+<!-- {% extends "bootstrap/base.html" %}
+
+{% extends "./templates/base.html" %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> app lucycashflow</title>
+    <title>Jinja2 Tutorial - Tutsplus</title>
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/boostratp.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
   </head>
   
+  {% block scripts %}
+  {{ super() }}
+  <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+  {% endblock %}
+
+  {% block title %}
+  app lucycashflow
+  {% endblock  %}
+
+
   {% block navbar %}
   {% include '_navbar.html' %}
   {% endblock  %}

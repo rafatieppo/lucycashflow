@@ -175,7 +175,8 @@ class populate_tables:
                 print("\n Tabela subcategoria preenchida \n")
             else:
                 ls_fill = ['juro', 'principal',
-                           'agua', 'aluguel', 'energia', 'internet', 'manutencao', 'mercado', 'prestacao', 'telefonia',
+                           'agua', 'aluguel', 'eletroeletron', 'energia',
+                           'interior', 'internet', 'manutencao', 'mercado', 'prestacao', 'telefonia',
                            'bike', 'computador', 'eletronico', 'emprestimo', 'geral', 'presente',
                            'aluguel', 'aplicacao', 'bolsa', 'devolucaoimposto',
                            'alimentacao', 'calcado', 'celular', 'educacao', 'higsaude', 'lazer',
@@ -185,7 +186,7 @@ class populate_tables:
                            'documentacao', 'combustivel', 'manutencao', 'seguro',
                            'estadia', 'refeicao', 'transporte']
                 ls_fk = [1, 1,
-                         2, 2, 2, 2, 2, 2, 2, 2,
+                         2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
                          3, 3, 3, 3, 3, 3,
                          4, 4, 4, 4,
                          5, 5, 5, 5, 5, 5, 5, 5, 5,

@@ -15,7 +15,7 @@ from flask import Flask
 from flask import render_template
 from flask import request, flash, jsonify
 # url_for, redirect
-from flask_bootstrap import Bootstrap
+# from flask_bootstrap import Bootstrap
 import os
 import pandas as pd
 import json
@@ -25,7 +25,7 @@ import json
 cdb = connect_db('db_lucycashflow.db')
 
 app = Flask(__name__)
-Bootstrap(app)
+# Bootstrap(app)
 
 app.config["SECRET_KEY"] = os.urandom(24)
 
