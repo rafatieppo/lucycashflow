@@ -97,10 +97,10 @@ class make_tables:
         tipo_id INTEGER NOT NULL REFERENCES tipo(tipo_id),
         data TEXT NOT NULL,
         conta_id INTEGER NOT NULL REFERENCES conta(conta_id),
-        to_conta_id INTEGER REFERENCES conta(conta_id),
-        categoria_id INTEGER REFERENCES categoria(categoria_id),
-        subcategoria_id INTEGER REFERENCES subcategoria(subcategoria_id),
-        valor INTEGER NOT NULL,
+        to_conta_id INTEGER NOT NULL REFERENCES conta(conta_id),
+        categoria_id INTEGER,
+        subcategoria_id INTEGER,
+        valor DECIMAL NOT NULL,
         obs TEXT,
         transferencia_ownkey TEXT)"""
         return create_table
@@ -154,8 +154,8 @@ class populate_tables:
             if len(row) > 0:
                 print("\n Tabela categoria preenchida \n")
             else:
-                ls_fill = ['emprestimo', 'moradia', 'outrasdespesas',
-                           'outrosrendimentos', 'pessoal', 'salario',
+                ls_fill = ['imposto', 'moradia', 'outras_despesas',
+                           'outras_receitas', 'pessoal', 'salario',
                            'txbancaria', 'veiculo', 'viagem']
                 ls_fk = [1, 1, 1, 2, 1, 2, 1, 1, 1]
                 for i in range(len(ls_fill)):
@@ -174,25 +174,25 @@ class populate_tables:
             if len(row) > 0:
                 print("\n Tabela subcategoria preenchida \n")
             else:
-                ls_fill = ['juro', 'principal',
-                           'agua', 'aluguel', 'eletroeletron', 'energia',
+                ls_fill = ['documentos', 'iptu', 'ipva', 'ir',
+                           'agua', 'aluguel', 'diarista', 'eletro_eletron', 'energia',
                            'interior', 'internet', 'manutencao', 'mercado', 'prestacao', 'telefonia',
-                           'bike', 'computador', 'eletronico', 'emprestimo', 'geral', 'presente',
-                           'aluguel', 'aplicacao', 'bolsa', 'devolucaoimposto',
-                           'alimentacao', 'calcado', 'celular', 'educacao', 'higsaude', 'lazer',
+                           'bike', 'computador', 'doacoes', 'eletronico', 'emprestimo', 'geral', 'pet', 'presente',
+                           'aplicacao', 'bolsa', 'devolucao_emprestimo', 'devolucao_imposto', 'diversos', 'locacao',
+                           'alimentacao', 'calcado', 'celular', 'educacao', 'hig_saude', 'lazer',
                            'livrorevista', 'vestuario', 'trabalho',
                            'job01', 'job02', 'job03',
                            'anuidade', 'juro',
-                           'documentacao', 'combustivel', 'manutencao', 'seguro',
+                           'combustivel', 'manutencao', 'seguro',
                            'estadia', 'refeicao', 'transporte']
-                ls_fk = [1, 1,
-                         2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-                         3, 3, 3, 3, 3, 3,
-                         4, 4, 4, 4,
+                ls_fk = [1, 1, 1, 1,
+                         2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                         3, 3, 3, 3, 3, 3, 3, 3,
+                         4, 4, 4, 4, 4, 4,
                          5, 5, 5, 5, 5, 5, 5, 5, 5,
                          6, 6, 6,
                          7, 7,
-                         8, 8, 8, 8,
+                         8, 8, 8,
                          9, 9, 9]
                 for i in range(len(ls_fill)):
                     ins = str("INSERT INTO subcategoria VALUES (NULL, " +
