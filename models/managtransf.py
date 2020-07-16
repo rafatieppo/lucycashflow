@@ -41,9 +41,9 @@ class managtransf:
             query = "INSERT INTO transferencia VALUES (NULL, 3, ?, ?, ?, NULL, NULL, ?, ?, ?);"
             cursor.execute(query,
                            (data, conta_id, to_conta_id, valorneg, obs, rl,))
-            query = "INSERT INTO transferencia VALUES (NULL, 3, ?, ?, NULL, NULL, NULL, ?, ?, ?);"
+            query = "INSERT INTO transferencia VALUES (NULL, 3, ?, ?, ?, NULL, NULL, ?, ?, ?);"
             cursor.execute(query,
-                           (data, to_conta_id, valor, str('oriundo conta ' + str(conta_id)), rl,))
+                           (data, to_conta_id, conta_id, valor, str('oriundo conta ' + str(conta_id)), rl,))
             connection.commit()
             print('Transferencia da conta ' + str(conta_id) + ' para ' +
                   str(to_conta_id) + ' registrada com sucesso')

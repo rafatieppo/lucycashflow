@@ -23,6 +23,8 @@ class genrelatorios:
             UNION ALL
             SELECT conta_nome,  valor AS valor FROM transferencia
             INNER JOIN conta ON transferencia.conta_id=conta.conta_id
+            UNION ALL
+            SELECT conta_nome, conta_saldo AS valor FROM conta
             )
             GROUP BY conta_nome;
             """

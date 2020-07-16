@@ -56,10 +56,14 @@ class genextratos:
             WHERE transacao.conta_id=? AND data >=? AND data <=?
             UNION ALL
             SELECT 1 as ID,  SUM(valor) AS valor FROM transferencia
-            WHERE transferencia.conta_id=? AND data >=? AND data <=?);
+            WHERE transferencia.conta_id=? AND data >=? AND data <=?
+            UNION ALL
+            SELECT 1 as ID, conta_saldo AS valor FROM conta
+            WHERE conta.conta_id=?);
             """
             result = cursor.execute(
-                query, (self.nome, self.di, self.df, self.nome, self.di, self.df))
+                query, (self.nome, self.di, self.df, self.nome, self.di,
+                        self.df, self.nome))
             row = result.fetchall()
             if row is not None:
                 print('Saldo gerado com sucesso')
