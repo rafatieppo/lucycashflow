@@ -53,17 +53,16 @@ class genextratos:
             query = """
             SELECT ID, round(SUM(valor),2) FROM (
             SELECT 1 as ID, round(SUM(valor),2) AS valor FROM transacao
-            WHERE transacao.conta_id=? AND data >=? AND data <=?
+            WHERE transacao.conta_id=?
             UNION ALL
             SELECT 1 as ID,  round(SUM(valor),2) AS valor FROM transferencia
-            WHERE transferencia.conta_id=? AND data >=? AND data <=?
+            WHERE transferencia.conta_id=?
             UNION ALL
             SELECT 1 as ID, conta_saldo AS valor FROM conta
             WHERE conta.conta_id=?);
             """
             result = cursor.execute(
-                query, (self.nome, self.di, self.df, self.nome, self.di,
-                        self.df, self.nome))
+                query, (self.nome, self.nome, self.nome))
             row = result.fetchall()
             if row is not None:
                 print('Saldo gerado com sucesso')
