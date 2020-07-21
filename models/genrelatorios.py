@@ -66,17 +66,17 @@ class genrelatorios:
         with connection:
             cursor = connection.cursor()
             query = """
-            SELECT transacao.data AS data, tipo.tipo_nome AS tipo, round(SUM(valor),2)
+            SELECT strftime("%Y-%m", transacao.data) AS data, tipo.tipo_nome AS tipo, round(SUM(valor),2)
             FROM transacao
             INNER JOIN tipo ON transacao.tipo_id=tipo.tipo_id
             WHERE data >=? AND data <=?
             GROUP BY tipo, strftime("%m-%Y", data)
             UNION ALL
-            SELECT data, tipo, round(SUM(valor),2)
+            SELECT strftime("%Y-%m", data), tipo, round(SUM(valor),2)
             FROM (
-            SELECT 'saldo' as tipo, data, tipo_id, valor FROM transacao)
+            SELECT 'saldo' AS tipo, data, tipo_id, valor FROM transacao)
             WHERE data >=? AND data <=?
-            GROUP BY strftime("%m-%Y", data)
+            GROUP BY strftime("%Y-%m", data)
             ORDER BY data ASC;
             """
             result = cursor.execute(
