@@ -15,15 +15,18 @@ archive my spreadsheet and work on my own program. ;)
 
 Why an app to financial management?
 
-Organize financial book is a good way to improve lives. Now days there
-are several on line sheets, apps for mobile, etc. However, once you data
-is in the internet, probably always it will be.
+Organize financial book is a good way to improve life. Now days there
+are several on line sheets, apps for mobile, etc. However, once your data
+is on the internet, probably always it will be.
  
 Thinking in privacy, `lucyCashflow` was created. It's a quite simple app
 to run in your own personal machine. The functions are store,
 categorize, and report money inputs and outputs. Intending to simplify
 the use, some categories and sub-categories were assigned (the
 categories are in Portuguese, Sorry!):
+
+p.s. This project it is only for study proposal. Feel free to use it,
+but please do not open issues. I do not intend to answer any questions. 
 
 ## How it works
 
@@ -70,7 +73,7 @@ you have fun.
 - DONE Backend for transactions (SQLITE3);
 - DONE FLASK structure
 - TODO Logic for transference 
-- TODO Reports [90%]
+- TODO Reports [83%]
   - [X] Back end balance
   - [X] Front end balance
   - [X] Back end bank statement
@@ -80,11 +83,17 @@ you have fun.
   - [X] Plot monthly cash flow
   - [X] Expenses by categories
   - [X] Expenses by subcategories
+  - [X] Floating point for sums
+  - [ ] Improve cash flow plot
   - [ ] Deploy in some server
    
 
 ## Logs 
 <a name="logss"></a> 
+
+### Tue 2020-07-21 19:05:54 -04
+- Modeling was altered, the number of categories was decreased. Balance
+for account is done. Floating point for sums has been fixed (cents).
 
 ### Sat 2020-07-04 18:00:00 -04
 - Expenses by categories and subcategories was implemented.
