@@ -73,7 +73,7 @@ you have fun.
 - DONE Backend for transactions (SQLITE3);
 - DONE FLASK structure
 - TODO Logic for transference 
-- TODO Reports [83%]
+- TODO Reports [84%]
   - [X] Back end balance
   - [X] Front end balance
   - [X] Back end bank statement
@@ -84,7 +84,8 @@ you have fun.
   - [X] Expenses by categories
   - [X] Expenses by subcategories
   - [X] Floating point for sums
-  - [ ] Improve cash flow plot
+  - [X] Improve cash flow plot
+  - [ ] Improve balance by account for a specific period
   - [ ] Deploy in some server
    
 
