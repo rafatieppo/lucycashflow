@@ -16,7 +16,7 @@ class genrelatorios:
         with connection:
             cursor = connection.cursor()
             query = """
-            SELECT conta_nome, sum(valor)
+            SELECT conta_nome, round(sum(valor),2)
             FROM (
             SELECT conta_nome , valor AS valor FROM transacao
             INNER JOIN conta ON  transacao.conta_id=conta.conta_id
@@ -42,13 +42,15 @@ class genrelatorios:
         with connection:
             cursor = connection.cursor()
             query = """
-            SELECT sum(valor)
+            SELECT round(sum(valor),2)
             FROM (
             SELECT conta_nome , valor AS valor FROM transacao
             INNER JOIN conta ON  transacao.conta_id=conta.conta_id
             UNION ALL
             SELECT conta_nome,  valor AS valor FROM transferencia
-            INNER JOIN conta ON transferencia.conta_id=conta.conta_id) ;
+            INNER JOIN conta ON transferencia.conta_id=conta.conta_id
+            UNION ALL
+            SELECT conta_nome, conta_saldo AS valor FROM conta);
             """
             result = cursor.execute(
                 query)
@@ -64,13 +66,13 @@ class genrelatorios:
         with connection:
             cursor = connection.cursor()
             query = """
-            SELECT transacao.data AS data, tipo.tipo_nome AS tipo, SUM(valor)
+            SELECT transacao.data AS data, tipo.tipo_nome AS tipo, round(SUM(valor),2)
             FROM transacao
             INNER JOIN tipo ON transacao.tipo_id=tipo.tipo_id
             WHERE data >=? AND data <=?
             GROUP BY tipo, strftime("%m-%Y", data)
             UNION ALL
-            SELECT data, tipo, SUM(valor)
+            SELECT data, tipo, round(SUM(valor),2)
             FROM (
             SELECT 'saldo' as tipo, data, tipo_id, valor FROM transacao)
             WHERE data >=? AND data <=?
@@ -91,7 +93,7 @@ class genrelatorios:
         with connection:
             cursor = connection.cursor()
             query = """
-            SELECT categoria.categoria_nome AS categoria, SUM(valor)
+            SELECT categoria.categoria_nome AS categoria, round(SUM(valor),2)
             FROM transacao
             INNER JOIN categoria ON transacao.categoria_id=categoria.categoria_id
             WHERE data >=? AND data <=? AND transacao.tipo_id <> 2
@@ -111,7 +113,7 @@ class genrelatorios:
         with connection:
             cursor = connection.cursor()
             query = """
-            SELECT categoria.categoria_nome AS categoria, subcategoria.subcategoria_nome AS subcategoria, SUM(valor)
+            SELECT categoria.categoria_nome AS categoria, subcategoria.subcategoria_nome AS subcategoria, round(SUM(valor),2)
             FROM transacao
             INNER JOIN categoria ON transacao.categoria_id=categoria.categoria_id
             INNER JOIN subcategoria ON transacao.subcategoria_id=subcategoria.subcategoria_id

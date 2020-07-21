@@ -18,7 +18,7 @@ connection.commit()
 ls_conta = ['BB_CC', 'BB_CP', 'BB_INV', 'CEF_CC', 'CEF_CP', 'CRED_CARD',
             'MYCAP', 'SICREDI_CC', 'SICREDI_CP', 'SICREDI_APLIC', 'TESOURO']
 
-ls_saldo = [0, 12500, 0, 10753.56, 0, 0,
+ls_saldo = [100801.83, 12500, 0, 10753.56, 0, 0,
             13000, 0, 0, 0, 0]
 
 cursor = connection.cursor()
@@ -55,7 +55,7 @@ for i in range(len(df)):
         val = df.iloc[i, 15] * -1
     else:
         val = df.iloc[i, 15]
-    obs = ""
+    obs = str(df.iloc[i, 2])
     query = "INSERT INTO transacao VALUES (NULL, ?,?,?,?,?,?,?);"
     cursor.execute(query, (tipoid, data, contaid, categid, subcaid, val,
                            obs,))

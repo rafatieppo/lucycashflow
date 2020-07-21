@@ -51,11 +51,11 @@ class genextratos:
         with connection:
             cursor = connection.cursor()
             query = """
-            SELECT ID, SUM(valor) FROM (
-            SELECT 1 as ID, SUM(valor) AS valor FROM transacao
+            SELECT ID, round(SUM(valor),2) FROM (
+            SELECT 1 as ID, round(SUM(valor),2) AS valor FROM transacao
             WHERE transacao.conta_id=? AND data >=? AND data <=?
             UNION ALL
-            SELECT 1 as ID,  SUM(valor) AS valor FROM transferencia
+            SELECT 1 as ID,  round(SUM(valor),2) AS valor FROM transferencia
             WHERE transferencia.conta_id=? AND data >=? AND data <=?
             UNION ALL
             SELECT 1 as ID, conta_saldo AS valor FROM conta
