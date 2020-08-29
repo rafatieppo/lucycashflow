@@ -1,1 +1,1 @@
-web: python app_lucycashflow.py
+web: gunicorn wsgi:app
