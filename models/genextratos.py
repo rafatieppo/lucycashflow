@@ -34,8 +34,9 @@ class genextratos:
                 valor, obs
                 FROM transferencia
                 INNER JOIN conta ON transferencia.conta_id=conta.conta_id
-                INNER JOIN tipo ON transferencia.tipo_id=tipo.tipo_id 
-                WHERE conta.conta_id=? AND data >=? AND data <=?;
+                INNER JOIN tipo ON transferencia.tipo_id=tipo.tipo_id
+                WHERE conta.conta_id=? AND data >=? AND data <=?
+                ORDER BY data ASC;
                 """
             result = cursor.execute(
                 query, (self.nome, self.di, self.df, self.nome, self.di, self.df))
