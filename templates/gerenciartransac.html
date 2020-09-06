@@ -8,15 +8,13 @@
 {% extends "base.html" %}
 {% block sub_content %}
 
-<div class="page-header">
-  <h2>Excluir Transacoes</h2>
+<div class="jumbotron">
+  <h2>Gerenciar Transações</h2>
 </div>
-<br>
 
 <form id="package_form" action="" method="POST">
-  <h3>Excluir Transacao</h3>
-
-  <b>Selecione a Conta</b>
+  <h3>Excluir Transação</h3>
+  <h5>Selecione a Conta</h5>
   <select class="form-control" name="conta">
     {% for row in contas %}
     <option value="{{ row[0] }}"{% if row[0] == state_categ.choice_categ %} selected{% endif %}>{{ row[1] }}</option>
@@ -24,16 +22,17 @@
   </select>
   <br>
   
-  <b>Digite o ID da Transacao</b> <br>
-  ID :<input type="text" name="idd"> <br><br>
+  <h5>Digite o ID da Transação</h5>
+  </h5> <input type="text" name="idd">
   <input type ="submit" name="action" value="ExcluirTransacao">
   <br>
   <br>
   <hr>
+  <br>
 
-  <h3>Excluir Transferencia</h3>
+  <h3>Excluir Transferência</h3>
 
-  <b>Selecione a Conta:</b>
+  <h5>Selecione a Conta:</h5>
   <select class="form-control" name="contat">
     {% for row in contas %}
     <option value="{{ row[0] }}"{% if row[0] == state_categ.choice_categ %} selected{% endif %}>{{ row[1] }}</option>
@@ -41,13 +40,10 @@
   </select>
   <br>
   
-  <b>Digite o ID da Transferencia</b> <br>
-  ID :<input type="text" name="iddt"> <br><br>
+  <h5>Digite o ID da Transferência</h5>
+  <input type="text" name="iddt">
   <input type ="submit" name="action" value="ExcluirTransferencia">
   <br>
-  <br>
-
-
 
 </form>
 
