@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block sub_content %}
 
-<div class="page-header">
+<div class="jumbotron">
   <h2>Relatórios de despesas e receitas</h2>
 </div>
 
@@ -30,14 +30,10 @@
 
 <form method="POST">
   <div class="panel-body">
-    <b>Digite a data Inicial(yyyy-mm-dd)</b> <br>
+    <h5>Digite a data Inicial (yyyy-mm-dd)</h5>
     <input type="text"  name="datai">
-    <br><br>
-    <b>Digite a data Final(yyyy-mm-dd)</b> <br>
+    <h5>Digite a data Final (yyyy-mm-dd)</h5>
     <input type="text"  name="dataf">
-    <br><br>
-    
-    <br>
     <input type ="submit" name="action" value="GerarRelatorio">
     <br><br>
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -49,9 +45,8 @@
     {% endif%}
     {% endwith %}
 
-
-    <h4>Gráfico de entradas e saídas mensal </h4>
     <center>
+    <h5>Gráfico de entradas e saídas mensal </h5>
       <link href="static/css/demo.css" rel="stylesheet" type="text/css">
       <script src="static/Chart.js"></script>
       <div class="chart-container" style="position: relative; height:65vh; width:60vw">
