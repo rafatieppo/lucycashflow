@@ -183,7 +183,7 @@ class populate_tables:
                            'livrorevista', 'vestuario', 'trabalho',
                            'job01', 'job02', 'job03',
                            'anuidade', 'juro',
-                           'combustivel', 'manutencao', 'seguro',
+                           'combustivel', 'mecanica', 'seguro',
                            'estadia', 'refeicao', 'transporte']
                 ls_fk = [1, 1, 1, 1,
                          2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
