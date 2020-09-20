@@ -1,9 +1,14 @@
 # lucycashflow
 
+You can check on line: [https://lucycashflow.herokuapp.com/](https://lucycashflow.herokuapp.com/). 
+
+p.s. This project it is only for study proposal. Feel free to use it,
+but please do not open issues. I do not intend to answer any questions. 
+
 ## Last update
 
 - Version 1.1
-- *Mon 2020-04-27 19:48:37 -04*, verifique os logs <a href="#logss">aqui</a>.
+- *Sun 2020-09-20 10:20:11 -04*, verifique os logs <a href="#logss">aqui</a>.
 
 ## Motivation
 
@@ -24,9 +29,6 @@ to run in your own personal machine. The functions are store,
 categorize, and report money inputs and outputs. Intending to simplify
 the use, some categories and sub-categories were assigned (the
 categories are in Portuguese, Sorry!):
-
-p.s. This project it is only for study proposal. Feel free to use it,
-but please do not open issues. I do not intend to answer any questions. 
 
 ## How it works
 
@@ -73,7 +75,7 @@ you have fun.
 - DONE Backend for transactions (SQLITE3);
 - DONE FLASK structure
 - TODO Logic for transference 
-- TODO Reports [84%]
+- TODO Reports [85%]
   - [X] Back end balance
   - [X] Front end balance
   - [X] Back end bank statement
@@ -86,11 +88,17 @@ you have fun.
   - [X] Floating point for sums
   - [X] Improve cash flow plot
   - [ ] Improve balance by account for a specific period
-  - [ ] Deploy in some server
+  - [ ] Improve reports
+  - [X] Deploy in some server
    
 
 ## Logs 
 <a name="logss"></a> 
+
+### Sun 2020-09-20 10:20:11 -04
+- Updated subcategories, a new one subcategory for vehicle was
+added. Two weeks ago the app as deployed on Heroku
+[https://lucycashflow.herokuapp.com/](https://lucycashflow.herokuapp.com/). 
 
 ### Tue 2020-07-21 19:05:54 -04
 - Modeling was altered, the number of categories was decreased. Balance
