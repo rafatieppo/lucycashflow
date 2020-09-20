@@ -183,7 +183,7 @@ class populate_tables:
                            'livrorevista', 'vestuario', 'trabalho',
                            'job01', 'job02', 'job03',
                            'anuidade', 'juro',
-                           'combustivel', 'mecanica', 'seguro',
+                           'aquisicao', 'combustivel', 'mecanica', 'seguro',
                            'estadia', 'refeicao', 'transporte']
                 ls_fk = [1, 1, 1, 1,
                          2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -192,7 +192,7 @@ class populate_tables:
                          5, 5, 5, 5, 5, 5, 5, 5, 5,
                          6, 6, 6,
                          7, 7,
-                         8, 8, 8,
+                         8, 8, 8, 8,
                          9, 9, 9]
                 for i in range(len(ls_fill)):
                     ins = str("INSERT INTO subcategoria VALUES (NULL, " +
