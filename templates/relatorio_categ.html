@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% block sub_content %}
+
+<div class="jumbotron">
+  <h2>Relatórios de despesas mensais por categorias</h2>
+</div>
+
+<h3>Relatórios</h3>
+
+<form method="POST">
+  <div class="panel-body">
+    <h5>Digite a data Inicial (yyyy-mm-dd)</h5>
+    <input type="text"  name="datai">
+    <h5>Digite a data Final (yyyy-mm-dd)</h5>
+    <input type="text"  name="dataf">
+    <input type ="submit" name="action" value="GerarRelatorio">
+    <br><br>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, msg in messages %}
+    <div class="alert alert-{{ category }}"> {{ msg }}
+    </div>
+    {% endfor %}
+    {% endif%}
+    {% endwith %}
+
+    <center>
+    <h5>Gráfico de entradas e saídas mensal </h5>
+      <link href="static/css/demo.css" rel="stylesheet" type="text/css">
+      <script src="static/Chart.js"></script>
+      <div class="chart-container" style="position: relative; height:65vh; width:60vw">
+        <canvas id="myChart"></canvas>
+      </div>
+    </center>
+    <script>
+     var ctx = document.getElementById('myChart').getContext('2d');
+     var myChart = new Chart(ctx, {
+         type: 'bar',
+         data: {
+             // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+             labels : [
+                 {% for item in labels %}
+                 "{{ item }}",
+                 {% endfor %}
+             ],
+
+             datasets: [{
+                 label: 'imposto',
+                 backgroundColor: '#00798c',
+                 data : [
+                     {% for item in imposto %}
+                     "{{ item }}",
+                     {% endfor %}
+                 ],
+                 borderColor: 'black',
+                 borderWidth: 1
+             },
+                        {
+                            label: 'moradia',
+                            backgroundColor: '#d1495b',
+                            data : [
+                                {% for item in moradia %}
+                                "{{ item }}",
+                                {% endfor %}
+                            ],
+                            borderColor: 'black',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'outras_despesas',
+                            backgroundColor: '#edae49',
+                            data : [
+                                {% for item in outras_despesas %}
+                                "{{ item }}",
+                                {% endfor %}
+                            ],
+                            borderColor: 'black',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'pessoal',
+                            backgroundColor: '#66a182',
+                            data : [
+                                {% for item in pessoal %}
+                                "{{ item }}",
+                                {% endfor %}
+                            ],
+                            borderColor: 'black',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'tx_bancaria',
+                            backgroundColor: '#2e4057',
+                            data : [
+                                {% for item in tx_bancaria %}
+                                "{{ item }}",
+                                {% endfor %}
+                            ],
+                            borderColor: 'black',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'veiculo',
+                            backgroundColor: '#bf41e4',
+                            data : [
+                                {% for item in veiculo %}
+                                "{{ item }}",
+                                {% endfor %}
+                            ],
+                            borderColor: 'black',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'viagem',
+                            backgroundColor: '#8d96a3',
+                            data : [
+                                {% for item in viagem %}
+                                "{{ item }}",
+                                {% endfor %}
+                            ],
+                            borderColor: 'black',
+                            borderWidth: 1
+                        }                        
+             ]
+         },
+         options: {
+             scales: {
+                 yAxes: [{
+                     ticks: {
+                         beginAtZero: true
+                     }
+                 }]
+             },
+             responsive: true,
+	     legend: {
+		 position: 'right',
+	 }}
+     });
+    </script>
+ 
+    <br>
+    <h4>Relatório por categoria</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th> Período </th>
+          <th> Categoria </th>
+          <th> Valor </th>
+          <tr>
+      </thead>
+      {% for row in outmonthcateg %}
+      <tr>
+        <td> {{ row[0] }} </td>
+        <td> {{ row[1] }} </td>
+        <td> {{ row[2] }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+    
+  </div>
+</form>
+
+
+
+{% endblock %}

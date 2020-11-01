@@ -20,6 +20,7 @@ import os
 import pandas as pd
 import json
 import datetime as dt
+import numpy as np
 
 # connecting
 cdb = connect_db('db_lucycashflow.db')
@@ -33,6 +34,92 @@ app.config["SECRET_KEY"] = os.urandom(24)
 @app.route("/", methods=['GET'])
 def index():
     return render_template('index.html')
+
+@app.route("/relatorio_categ", methods=["GET", "POST"])
+def relatorio_categ():
+    connection = cdb.fconnecta()
+    conf = config_db(connection)
+    conf.config()
+    di = request.form.get('datai', False)
+    df = request.form.get('dataf', False)
+    connection = cdb.fconnecta()
+    conf = config_db(connection)
+    conf.config()
+    reports_all = genrelatorios(connection, di, df)
+    # bal_overall = reports_all.report_categories()
+    # ------------------------------------------------------------
+    # labels = ["January", "February", "March",
+    #           "April", "May", "June", "July", "August"]
+    # values = [10, 9, 8, 7, 6, 4, 7, 8]
+    # ------------------------------------------------------------
+    # input output balance by month
+    if request.method == "POST" and request.form['action'] == 'GerarRelatorio':
+        # balance for accounts
+        outmonthcateg = reports_all.report_categories()
+        ls_dt = []
+        ls_ct = []
+        ls_vl = []
+        for i in range(len(outmonthcateg)):
+            ls_dt.append(outmonthcateg[i][0])
+            ls_ct.append(outmonthcateg[i][1])
+            ls_vl.append(outmonthcateg[i][2])
+        df_outmonthcateg = pd.DataFrame({'data': ls_dt,
+                                         'catt': ls_ct,
+                                         'valor': ls_vl})
+        # js plot
+        maxx = max(ls_vl) * 1.1
+        xx = df_outmonthcateg.pivot_table(index='data',
+                                          values='valor',
+                                          columns='catt',
+                                          fill_value=0)
+        labels = list(xx.index)
+        try:
+            imposto = list(map(abs, xx['imposto']))
+        except KeyError:
+            imposto = list(np.repeat(0, len(xx)))
+        try:
+            moradia = list(map(abs, xx['moradia']))
+        except KeyError:
+            moradia = list(np.repeat(0, len(xx)))
+        try:
+            outras_despesas = list(map(abs, xx['outras_despesas']))
+        except KeyError:
+            outras_despesas = list(np.repeat(0, len(xx)))
+        try:
+            pessoal = list(map(abs, xx['pessoal']))
+        except KeyError:
+            pessoal = list(np.repeat(0, len(xx)))
+        try:
+            tx_bancaria = list(map(abs, xx['tx_bancaria']))
+        except KeyError:
+            tx_bancaria = list(np.repeat(0, len(xx)))
+        try:
+            veiculo = list(map(abs, xx['veiculo']))
+        except KeyError:
+            veiculo = list(np.repeat(0, len(xx)))
+        try:
+            viagem = list(map(abs, xx['viagem']))
+        except KeyError:
+            viagem = list(np.repeat(0, len(xx)))
+        if outmonthcateg is None:
+            flash(' - Não há transações entre  ** ' + di + ' ** e ** ' + df +
+                  '**')
+        else:
+            flash(' - Relatório de ** ' + di + ' ** a ** ' + df +
+                  '** ', 'info')
+        return render_template('relatorio_categ.html',
+                               outmonthcateg=outmonthcateg,
+                               df_outmonthcateg=df_outmonthcateg,
+                               labels=labels, imposto=imposto,
+                               moradia=moradia,
+                               outras_despesas=outras_despesas,
+                               pessoal=pessoal,
+                               tx_bancaria=tx_bancaria, veiculo=veiculo,
+                               viagem=viagem)
+    else:
+        return render_template('relatorio_categ.html')
+
+# ------------------------------------------------------------
 
 
 @app.route("/relatorio", methods=["GET", "POST"])

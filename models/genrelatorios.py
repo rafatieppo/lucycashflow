@@ -128,3 +128,26 @@ class genrelatorios:
                 return row
             else:
                 print('Nao ha dados para o periodo')
+
+# ------------------------------------------------------------
+
+    def report_categories(self):
+        connection = self.connection
+        with connection:
+            cursor = connection.cursor()
+            query = """
+            SELECT  strftime("%Y-%m", transacao.data) AS data, categoria.categoria_nome AS categoria, round(SUM(valor), 2)
+            FROM transacao
+            INNER JOIN categoria ON transacao.categoria_id=categoria.categoria_id
+            WHERE data >=? AND data <=? AND transacao.tipo_id <> 2
+            GROUP BY categoria, strftime("%m-%Y", data)
+            ORDER BY data;
+            """
+            result = cursor.execute(
+                query, (self.di, self.df,))
+            row = result.fetchall()
+            if row is not None:
+                print('Relatorio despesa por mes e categoria gerado com sucesso')
+                return row
+            else:
+                print('Nao ha dados para o periodo')
