@@ -8,7 +8,7 @@ but please do not open issues. I do not intend to answer any questions.
 ## Last update
 
 - Version 1.1
-- *Sun 2020-09-20 10:20:11 -04*, verifique os logs <a href="#logss">aqui</a>.
+- *Thu 2021-01-28 17:32:37 -04*, verifique os logs <a href="#logss">aqui</a>.
 
 ## Motivation
 
