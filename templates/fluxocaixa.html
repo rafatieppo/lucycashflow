@@ -2,31 +2,9 @@
 {% block sub_content %}
 
 <div class="jumbotron">
-  <h2>Relatórios de despesas e receitas</h2>
+  <h2>Fluxo de caixa</h2>
 </div>
 
-<h3>Saldo das contas</h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th> Conta </th>
-      <th> Saldo </th>
-      <tr>
-  </thead>
-  {% for row in bal_allacc %}
-  <tr>
-    <td> {{ row[0] }} </td>
-    <td> {{ row[1] }} </td>
-  </tr>
-  {% endfor %}
-  <tr>
-    <td> Saldo Total </td>
-    <td> {{ bal_overall[0][0] }} </td>
-  </tr>
-</table>
-
-<hr>
-<h3>Relatórios</h3>
 
 <form method="POST">
   <div class="panel-body">
@@ -46,7 +24,7 @@
     {% endwith %}
 
     <center>
-    <h5>Gráfico de entradas e saídas mensal </h5>
+      <h5>Gráfico de entradas e saídas mensal </h5>
       <link href="static/css/demo.css" rel="stylesheet" type="text/css">
       <script src="static/Chart.js"></script>
       <div class="chart-container" style="position: relative; height:65vh; width:60vw">
@@ -62,9 +40,7 @@
              labels : [
                  {% for item in labels %}
                  "{{ item }}",
-                 {% endfor %}
-             ],
-
+                 {% endfor %}],
              datasets: [{
                  label: 'despesa',
                  backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -74,20 +50,18 @@
                      {% endfor %}
                  ],
                  borderColor: 'black',
-                 borderWidth: 1
-             },
+                 borderWidth: 1},
                         {
                             label: 'receita',
                             backgroundColor: 'rgba(54, 162, 235, 0.2)',
                             data : [
                                 {% for item in receitas %}
                                 "{{ item }}",
-                                {% endfor %}
-                            ],
+                                {% endfor %}],
                             borderColor: 'black',
                             borderWidth: 1
              }]
-         },
+             },
          options: {
              scales: {
                  yAxes: [{
@@ -103,10 +77,8 @@
      });
     </script>
 
-
- 
     <br>
-    <h4>Balanço mensal</h4>
+    <h4>Tabela fluxo de caixa</h4>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -120,50 +92,17 @@
         <td> {{ row[0] }} </td>
         <td> {{ row[1] }} </td>
         <td> {{ row[2] }} </td>
-        {% endfor %}
-    </table>
-
-
-    <h4>Relatório por categoria</h4>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th> Categoria </th>
-          <th> Soma </th>
-          <tr>
-      </thead>
-      {% for row in expense_categ %}
+      </tr>
+      {% endfor %}
+      {% for row in balancesum %}
       <tr>
-        <td> {{ row[0] }} </td>
-        <td> {{ row[1] }} </td>
+        <td></td>
+        <td><b>Saldo total</b></td>
+        <td><b>{{ row[0] }}</b></td>
       </tr>
       {% endfor %}
     </table>
-
-    <h4>Relatório por SUBcategoria</h4>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th> Categoria </th>
-          <th> Subcategoria </th>
-          <th> Soma </th>
-          <tr>
-      </thead>
-      {% for row in expense_subcateg %}
-      <tr>
-        <td> {{ row[0] }} </td>
-        <td> {{ row[1] }} </td>
-        <td> {{ row[2] }} </td>
-      </tr>
-      {% endfor %}
-    </table>
-    
-
-
-    
   </div>
 </form>
-
-
 
 {% endblock %}

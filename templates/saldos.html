@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block sub_content %}
+
+<div class="jumbotron">
+  <h2>Saldo das contas</h2>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Conta</th>
+      <th>Saldo</th>
+    </tr>
+  </thead>
+  {% for row in bal_allacc %}
+  <tr>
+    <td>{{ row[0] }}</td>
+    <td>{{ row[1] }}</td>
+  </tr>
+  {% endfor %}
+  <tr>
+    <td><b>Saldo Total</b></td>
+    <td><b>{{ bal_overall[0][0] }}</b></td>
+  </tr>
+</table>
+<hr>
+{% endblock %}

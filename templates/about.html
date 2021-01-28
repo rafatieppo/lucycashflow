@@ -1,6 +1,21 @@
 {% extends "base.html" %}
-    {% block sub_content %}
+{% block sub_content %}
 
-        <h1>About</h1>
-teste
-    {% endblock %}
+<h1>About</h1>
+<hr>
+<p>Este aplicativo funciona como um gerenciador financeiro. Inicialmente o usuário deve criar  pelo menos uma conta para receber os registros de despesas e receitas. Para cada registro de receitas e despesas, o usuário especifica a data, conta, categoria e subcategoria oriundas de uma lista, valor e uma observação (falcultativo). Após alimentar o banco de dados, há opção da geração de relatórios sobre o saldo de contas, fluxo de caixa, despesas por categoria e subcategoria.</p>
+
+<h5>Recursos utilizados</h5>
+
+<ul>
+    <li>Sqlite3</li>
+    <li>Python (Flask)</li>
+    <li>CSS (Bootstrap)</li>
+    <li>JavaScript</li>
+</ul>
+
+<h5>Nota</h5>
+
+<p>Este aplicativo foi desenvolvido para fins pessoais, com objetivo de aprender o funcionamento de banco de dados, front-end, back-end, python, git, lógica de programação, etc. Maiores informações em <a href="https://github.com/rafatieppo/lucycashflow"> AQUI</a>.</p>
+
+{% endblock %}

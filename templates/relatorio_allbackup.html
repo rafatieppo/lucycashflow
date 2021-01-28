@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% block sub_content %}
+
+<div class="jumbotron">
+  <h2>Relatórios de despesas e receitas</h2>
+</div>
+
+<hr>
+<h3>Relatórios</h3>
+
+<form method="POST">
+  <div class="panel-body">
+    <h5>Digite a data Inicial (yyyy-mm-dd)</h5>
+    <input type="text"  name="datai">
+    <h5>Digite a data Final (yyyy-mm-dd)</h5>
+    <input type="text"  name="dataf">
+    <input type ="submit" name="action" value="GerarRelatorio">
+    <br><br>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, msg in messages %}
+    <div class="alert alert-{{ category }}"> {{ msg }}
+    </div>
+    {% endfor %}
+    {% endif%}
+    {% endwith %}
+
+    <center>
+    <h5>Gráfico de entradas e saídas mensal </h5>
+      <link href="static/css/demo.css" rel="stylesheet" type="text/css">
+      <script src="static/Chart.js"></script>
+      <div class="chart-container" style="position: relative; height:65vh; width:60vw">
+        <canvas id="myChart"></canvas>
+      </div>
+    </center>
+    <script>
+     var ctx = document.getElementById('myChart').getContext('2d');
+     var myChart = new Chart(ctx, {
+         type: 'bar',
+         data: {
+             // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+             labels : [
+                 {% for item in labels %}
+                 "{{ item }}",
+                 {% endfor %}
+             ],
+
+             datasets: [{
+                 label: 'despesa',
+                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                 data : [
+                     {% for item in despesas %}
+                     "{{ item }}",
+                     {% endfor %}
+                 ],
+                 borderColor: 'black',
+                 borderWidth: 1
+             },
+                        {
+                            label: 'receita',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            data : [
+                                {% for item in receitas %}
+                                "{{ item }}",
+                                {% endfor %}
+                            ],
+                            borderColor: 'black',
+                            borderWidth: 1
+             }]
+         },
+         options: {
+             scales: {
+                 yAxes: [{
+                     ticks: {
+                         beginAtZero: true
+                     }
+                 }]
+             },
+             responsive: true,
+	     legend: {
+		 position: 'right',
+	 }}
+     });
+    </script>
+
+
+ 
+    <br>
+    <h4>Balanço mensal</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th> Data </th>
+          <th> Tipo </th>
+          <th> Valor </th>
+        </tr>
+      </thead>
+      {% for row in inoutbalmonth %}
+      <tr>
+        <td> {{ row[0] }} </td>
+        <td> {{ row[1] }} </td>
+        <td> {{ row[2] }} </td>
+        {% endfor %}
+    </table>
+
+
+    <h4>Relatório por categoria</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th> Categoria </th>
+          <th> Soma </th>
+          <tr>
+      </thead>
+      {% for row in expense_categ %}
+      <tr>
+        <td> {{ row[0] }} </td>
+        <td> {{ row[1] }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <h4>Relatório por SUBcategoria</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th> Categoria </th>
+          <th> Subcategoria </th>
+          <th> Soma </th>
+          <tr>
+      </thead>
+      {% for row in expense_subcateg %}
+      <tr>
+        <td> {{ row[0] }} </td>
+        <td> {{ row[1] }} </td>
+        <td> {{ row[2] }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+    
+
+
+    
+  </div>
+</form>
+
+
+
+{% endblock %}

@@ -75,7 +75,7 @@ you have fun.
 - DONE Backend for transactions (SQLITE3);
 - DONE FLASK structure
 - TODO Logic for transference 
-- TODO Reports [85%]
+- TODO Reports [100%]
   - [X] Back end balance
   - [X] Front end balance
   - [X] Back end bank statement
@@ -87,13 +87,16 @@ you have fun.
   - [X] Expenses by subcategories
   - [X] Floating point for sums
   - [X] Improve cash flow plot
-  - [ ] Improve balance by account for a specific period
-  - [ ] Improve reports
+  - [X] Improve balance by account for a specific period
+  - [X] Improve reports
   - [X] Deploy in some server
    
 
 ## Logs 
 <a name="logss"></a> 
+
+### Thu 2021-01-28 17:32:37 -04
+- Reports has been updated (cashflow, balance, expenses, ...), 
 
 ### Sun 2020-09-20 10:20:11 -04
 - Updated subcategories, a new one subcategory for vehicle was

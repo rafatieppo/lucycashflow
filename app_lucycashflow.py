@@ -35,6 +35,99 @@ app.config["SECRET_KEY"] = os.urandom(24)
 def index():
     return render_template('index.html')
 
+# ------------------------------------------------------------
+
+
+@app.route("/saldo", methods=["GET", "POST"])
+def saldo():
+    connection = cdb.fconnecta()
+    conf = config_db(connection)
+    conf.config()
+    di = request.form.get('datai', False)
+    df = request.form.get('dataf', False)
+    connection = cdb.fconnecta()
+    conf = config_db(connection)
+    conf.config()
+    reports_all = genrelatorios(connection, di, df)
+    bal_overall = reports_all.balance_overall()
+    bal_allacc = reports_all.balance_allacc()
+    return render_template('saldos.html',
+                           bal_allacc=bal_allacc,
+                           bal_overall=bal_overall)
+
+# ------------------------------------------------------------
+
+
+@app.route("/fluxocaixa", methods=["GET", "POST"])
+def fluxocaixa():
+    connection = cdb.fconnecta()
+    conf = config_db(connection)
+    conf.config()
+    # di = '2015-01-01'
+    # df = '2021-01-01'
+    di = request.form.get('datai', False)
+    df = request.form.get('dataf', False)
+    connection = cdb.fconnecta()
+    conf = config_db(connection)
+    conf.config()
+    reports_all = genrelatorios(connection, di, df)
+    if request.method == "POST" and request.form['action'] == 'GerarRelatorio':
+        # balance for accounts
+        inoutbalmonth = reports_all.inout_month()
+        ls_dt = []
+        ls_ty = []
+        ls_vl = []
+        for i in range(len(inoutbalmonth)):
+            ls_dt.append(inoutbalmonth[i][0])
+            ls_ty.append(inoutbalmonth[i][1])
+            ls_vl.append(inoutbalmonth[i][2])
+        df_inoutbalmonth = pd.DataFrame({'data': ls_dt,
+                                         'tipo': ls_ty,
+                                         'valor': ls_vl})
+
+        # soma do saldo de todos os meses
+        balancesum = df_inoutbalmonth.query(
+            'tipo == "saldo"').reset_index()
+        balancesum = [(df_inoutbalmonth['valor'].sum(),)]
+
+        # plots
+        df_inoutbalmonth = df_inoutbalmonth.query(
+            'tipo != "saldo"').reset_index()
+        # js plot
+        # maxx = max(ls_vl) * 1.1
+        xx = df_inoutbalmonth.pivot_table(index='data',
+                                          values='valor',
+                                          columns='tipo',
+                                          fill_value=0)
+        # plot js
+        labels = list(xx.index)
+        despesas = list(map(abs, xx['despesa']))
+        receitas = list(map(abs, xx['receita']))
+
+        if inoutbalmonth is None:
+            flash(' - Não há transações entre  ** ' + di + ' ** e ** ' + df +
+                  '**')
+        else:
+            flash(' - Relatório de ** ' + di + ' ** a ** ' + df +
+                  '** ', 'info')
+        return render_template('fluxocaixa.html',
+                               inoutbalmonth=inoutbalmonth,
+                               df_inoutbalmonth=df_inoutbalmonth,
+                               labels=labels, despesas=despesas,
+                               receitas=receitas,
+                               balancesum=balancesum
+                               )
+    else:
+        return render_template('fluxocaixa.html')
+        # inoutbalmonth=inoutbalmonth,
+        # df_inoutbalmonth=df_inoutbalmonth,
+        # labels=labels, max=maxx, values=values,
+        # ls_fillcolor=ls_fillcolor,
+        # despesas=despesas, receitas=receitas)
+
+# ------------------------------------------------------------
+
+
 @app.route("/relatorio_categ", methods=["GET", "POST"])
 def relatorio_categ():
     connection = cdb.fconnecta()
@@ -122,6 +215,55 @@ def relatorio_categ():
 # ------------------------------------------------------------
 
 
+@app.route("/relatorio_subcateg", methods=["GET", "POST"])
+def relatorio_subcateg():
+    connection = cdb.fconnecta()
+    conf = config_db(connection)
+    conf.config()
+    di = request.form.get('datai', False)
+    df = request.form.get('dataf', False)
+    connection = cdb.fconnecta()
+    conf = config_db(connection)
+    conf.config()
+    reports_all = genrelatorios(connection, di, df)
+    bal_overall = reports_all.balance_overall()
+    bal_allacc = reports_all.balance_allacc()
+    # ------------------------------------------------------------
+    # input output balance by month
+    if request.method == "POST" and request.form['action'] == 'GerarRelatorio':
+        # balance for accounts
+        inoutbalmonth = reports_all.inout_month()
+        ls_dt = []
+        ls_ty = []
+        ls_vl = []
+        for i in range(len(inoutbalmonth)):
+            ls_dt.append(inoutbalmonth[i][0])
+            ls_ty.append(inoutbalmonth[i][1])
+            ls_vl.append(inoutbalmonth[i][2])
+
+        # report by categoria
+        expense_subcateg = reports_all.expenses_subcategories()
+
+        if inoutbalmonth is None:
+            flash(' - Não há transações entre  ** ' + di + ' ** e ** ' + df +
+                  '**')
+        else:
+            flash(' - Relatório de ** ' + di + ' ** a ** ' + df +
+                  '** ', 'info')
+        return render_template('relatorio_subcateg.html',
+                               bal_allacc=bal_allacc,
+                               bal_overall=bal_overall,
+                               inoutbalmonth=inoutbalmonth,
+                               expense_subcateg=expense_subcateg)
+    # max=maxx, values=values,
+    # ls_fillcolor=ls_fillcolor)
+    else:
+        return render_template('relatorio_subcateg.html',
+                               bal_allacc=bal_allacc,
+                               bal_overall=bal_overall)
+
+
+# ------------------------------------------------------------
 @app.route("/relatorio", methods=["GET", "POST"])
 def relatorio():
     connection = cdb.fconnecta()
@@ -197,6 +339,8 @@ def relatorio():
         # labels=labels, max=maxx, values=values,
         # ls_fillcolor=ls_fillcolor,
         # despesas=despesas, receitas=receitas)
+
+# ------------------------------------------------------------
 
 
 @app.route("/extrato", methods=["GET", "POST"])

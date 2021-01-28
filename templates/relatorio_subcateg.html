@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block sub_content %}
+
+<div class="jumbotron">
+  <h2>Despesas mensais por subcategorias</h2>
+</div>
+
+<form method="POST">
+  <div class="panel-body">
+    <h5>Digite a data Inicial (yyyy-mm-dd)</h5>
+    <input type="text"  name="datai">
+    <h5>Digite a data Final (yyyy-mm-dd)</h5>
+    <input type="text"  name="dataf">
+    <input type ="submit" name="action" value="GerarRelatorio">
+    <br><br>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, msg in messages %}
+    <div class="alert alert-{{ category }}"> {{ msg }}
+    </div>
+    {% endfor %}
+    {% endif%}
+    {% endwith %}
+
+    <br>
+    <h4>Relatório por subcategoria</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th> Categoria </th>
+          <th> Subcategoria </th>
+          <th> Soma </th>
+          <tr>
+      </thead>
+      {% for row in expense_subcateg %}
+      <tr>
+        <td> {{ row[0] }} </td>
+        <td> {{ row[1] }} </td>
+        <td> {{ row[2] }} </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</form>
+
+
+
+{% endblock %}
