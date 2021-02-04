@@ -88,7 +88,7 @@ def fluxocaixa():
         # soma do saldo de todos os meses
         balancesum = df_inoutbalmonth.query(
             'tipo == "saldo"').reset_index()
-        balancesum = [(df_inoutbalmonth['valor'].sum(),)]
+        balancesum = [(balancesum['valor'].sum(),)]
 
         # plots
         df_inoutbalmonth = df_inoutbalmonth.query(
