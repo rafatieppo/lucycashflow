@@ -30,10 +30,6 @@ categorize, and report money inputs and outputs. Intending to simplify
 the use, some categories and sub-categories were assigned (the
 categories are in Portuguese, Sorry!):
 
-## How it works
-
-Its is quite simple. A better instruction is coming soon. 
-
 ## Installation
 
 Requirements:
@@ -50,11 +46,18 @@ install the libraries you can use `pip3`:
 
 `pip3 install <package name>`
 
-
 Download:
 
 Create a specific folder for this app. Download the all content from
 GitHub and unzip in the folder that you created.
+
+## How to use
+
+0. go to terminal and access the folder that you created for the app.
+1. remove the file `db_lucycashflow.db`, it is because the database from github is not clean.
+2. create a new database, just run: `python3 create_tables.py` . This new database has one account called "MyWallet"
+
+*note: you just need to do the above steps once, but if for some reason you want create a new database, feel free to repeat.*
 
 ## How to launch
 
@@ -66,9 +69,21 @@ It will return a local address like: `http://127.0.0.1:5000/`, just copy
 and paste on your browser (Firefox, Chromium, Chrome, etc). Now I hope
 you have fun.
 
+## What you can do
+
+- Create accounts
+- Insert expenses and incomes and categorize by type
+- Transfers between accounts
+- Manage transactions
+- View reports:
+  - cash flow by period
+  - account statement
+  - balance by account
+  - expenses by category
+
 ## Development
 
-- DONE Modeling DB;
+- DONE Modeling DB (Portuguese);
 
 <img src="/models/dbsql_model.png" alt="" width="300">
 
