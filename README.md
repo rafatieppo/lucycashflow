@@ -8,7 +8,7 @@ but please do not open issues. I do not intend to answer any questions.
 ## Last update
 
 - Version 1.1
-- *Thu 2021-01-28 17:32:37 -04*, verifique os logs <a href="#logss">aqui</a>.
+- *Thu 2021-05-13 11:42:37 -04*, verifique os logs <a href="#logss">aqui</a>.
 
 ## Motivation
 
@@ -89,8 +89,8 @@ you have fun.
 
 - DONE Backend for transactions (SQLITE3);
 - DONE FLASK structure
-- TODO Logic for transference 
-- TODO Reports [100%]
+- DONE Logic for transference 
+- DONE Reports [100%]
   - [X] Back end balance
   - [X] Front end balance
   - [X] Back end bank statement
@@ -109,6 +109,9 @@ you have fun.
 
 ## Logs 
 <a name="logss"></a> 
+
+### Thu 2021-05-13 11:42:37 -04
+- Improvements cashflow chart and update to jsChart 3.0
 
 ### Thu 2021-01-28 17:32:37 -04
 - Reports has been updated (cashflow, balance, expenses, ...), 
