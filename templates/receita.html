@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block sub_content %}
+
+<div class="jumbotron">
+  <h2>Receitas</h2>
+</div>
+
+<form method="POST">
+  <div class="panel-body">
+    <h5>Digite a data Inicial(yyyy-mm-dd)</h5>
+      <input type="text"  name="datai">
+      <br><br>
+      <h5>Digite a data Final(yyyy-mm-dd)</h5>
+        <input type="text"  name="dataf">
+        <br><br>
+        <h5>Selecione a Conta de Origem</h5>:
+        <select class="form-control" name="conta">
+          {% for row in contas %}
+          <option value="{{ row[0] }}"{% if row[0] == state_categ.choice_categ %} selected{% endif %}>{{ row[1] }}</option>
+          {% endfor %}
+        </select>
+        <br>
+        <input type ="submit" name="action" value="GerarReceita">
+        <br><br>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, msg in messages %}
+        <div class="alert alert-{{ category }}"> {{ msg }}
+        </div>
+        {% endfor %}
+        {% endif%}
+        {% endwith %}
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th> ID </th>
+                <th> Data </th>
+                <th> Tipo </th>
+                <th> Conta </th>
+                <th> Categoria </th>
+                <th> Subcategoria </th>
+                <th> Valor </th>
+                <th> Obs </th>
+                <tr>
+              </thead>
+              {% for row in incom %}
+            <tr>
+              <td> {{ row[0] }} </td>
+              <td> {{ row[1] }} </td>
+              <td> {{ row[2] }} </td>
+              <td> {{ row[3] }} </td>
+              <td> {{ row[4] }} </td>
+              <td> {{ row[5] }} </td>
+              <td> {{ row[6] }} </td>
+              <td> {{ row[7] }} </td>
+              <td> {{ row[8] }} </td>
+            </tr>
+            {% endfor %}
+            </table>
+  </div>
+</form>
+{% endblock %}

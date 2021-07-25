@@ -417,6 +417,40 @@ def gerenciartransac():
                            contas=contas,
                            state_categ=state_categ)
 
+# ------------------------------------------------------------
+
+
+@app.route("/receita", methods=["GET", "POST"])
+def receitas():
+    connection = cdb.fconnecta()
+    conf = config_db(connection)
+    conf.config()
+    cursor = connection.cursor()
+    result = cursor.execute("SELECT * FROM conta ORDER BY conta.conta_nome;")
+    contas = result.fetchall()
+    # test if value was passed in (e.g. GET method), default value is 1
+    selected = request.args.get('choice_categ', '1')
+    # application 'state' variable with default value and test
+    state_categ = {'choice_categ': selected}
+    # get bank statement from db
+    if request.method == "POST" and request.form['action'] == 'GerarReceita':
+        di = request.form.get('datai', False)
+        df = request.form.get('dataf', False)
+        cc = request.form.get('conta', False)
+        connection = cdb.fconnecta()
+        conf = config_db(connection)
+        conf.config()
+        income_count = genextratos(connection, cc, di, df)
+        incom = income_count.incomes()
+        return render_template('receita.html',
+                               contas=contas,
+                               state_categ=state_categ,
+                               incom=incom)
+    else:
+        return render_template('receita.html',
+                               state_categ=state_categ,
+                               contas=contas)
+
 
 @app.route("/transferencias", methods=["GET", "POST"])
 def transferencias():

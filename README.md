@@ -105,10 +105,14 @@ you have fun.
   - [X] Improve balance by account for a specific period
   - [X] Improve reports
   - [X] Deploy in some server
+  - [ ] Verify locks for income data as expenses and vice versa
    
 
 ## Logs 
 <a name="logss"></a> 
+
+### Sun 2021-07-25 12:27:32 -04
+- A incomes report has been included.
 
 ### Thu 2021-05-13 11:42:37 -04
 - Improvements cashflow chart and update to jsChart 3.0

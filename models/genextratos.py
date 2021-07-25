@@ -47,6 +47,31 @@ class genextratos:
             else:
                 print('Nao foi possivel gerar extrato')
 
+    def incomes(self):
+        connection = self.connection
+        with connection:
+            cursor = connection.cursor()
+            query = """
+            SELECT transacao.transacao_id AS ID, transacao.data, tipo.tipo_nome,
+            conta.conta_nome AS conta, categoria.categoria_nome as categoria,
+            subcategoria.subcategoria_nome as subcategoria, valor, obs
+            FROM transacao
+            INNER JOIN categoria ON transacao.categoria_id=categoria.categoria_id
+            INNER JOIN subcategoria ON transacao.subcategoria_id=subcategoria.subcategoria_id
+            INNER JOIN conta ON transacao.conta_id=conta.conta_id
+            INNER JOIN tipo ON transacao.tipo_id=tipo.tipo_id
+            WHERE conta.conta_id=? AND data >=? AND data <=? AND transacao.tipo_id=2
+            ORDER BY data ASC;
+            """
+            result = cursor.execute(
+                query, (self.nome, self.di, self.df,))
+            row = result.fetchall()
+            if row is not None:
+                print('Relatorio de RECEITAS gerado com sucesso')
+                return row
+            else:
+                print('Nao ha dados de receitas para o periodo')
+
     def saldo_bycount(self):
         connection = self.connection
         with connection:

@@ -129,8 +129,6 @@ class genrelatorios:
             else:
                 print('Nao ha dados para o periodo')
 
-# ------------------------------------------------------------
-
     def report_categories(self):
         connection = self.connection
         with connection:
