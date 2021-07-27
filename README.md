@@ -8,7 +8,7 @@ but please do not open issues. I do not intend to answer any questions.
 ## Last update
 
 - Version 1.1
-- *Thu 2021-05-13 11:42:37 -04*, verifique os logs <a href="#logss">aqui</a>.
+- *Tue 2021-07-27 19:42:37 -04*, verifique os logs <a href="#logss">aqui</a>.
 
 ## Motivation
 
@@ -110,6 +110,9 @@ you have fun.
 
 ## Logs 
 <a name="logss"></a> 
+
+### Tue 2021-07-27 19:42:37 -04
+- Total of incomes has been included on incomes report
 
 ### Sun 2021-07-25 12:27:32 -04
 - A incomes report has been included.

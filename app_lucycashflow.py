@@ -442,10 +442,21 @@ def receitas():
         conf.config()
         income_count = genextratos(connection, cc, di, df)
         incom = income_count.incomes()
+        if incom is not None:
+            ls_inc = []
+            for i in range(len(incom)):
+                ls_inc.append(float(incom[i][6]))
+            incom_tot = str(round(np.sum(ls_inc), 2))
+        else:
+            incom_tot = ''
+        flash(' - Receitas de ** ' + di + ' ** a ** ' + df +
+              '**  -------> TOTAL: $ ' + incom_tot, 'info')
+
         return render_template('receita.html',
                                contas=contas,
                                state_categ=state_categ,
-                               incom=incom)
+                               incom=incom,
+                               incom_tot=incom_tot)
     else:
         return render_template('receita.html',
                                state_categ=state_categ,
