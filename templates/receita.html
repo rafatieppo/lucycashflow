@@ -13,12 +13,6 @@
       <h5>Digite a data Final(yyyy-mm-dd)</h5>
         <input type="text"  name="dataf">
         <br><br>
-        <h5>Selecione a Conta de Origem</h5>:
-        <select class="form-control" name="conta">
-          {% for row in contas %}
-          <option value="{{ row[0] }}"{% if row[0] == state_categ.choice_categ %} selected{% endif %}>{{ row[1] }}</option>
-          {% endfor %}
-        </select>
         <br>
         <input type ="submit" name="action" value="GerarReceita">
         <br><br>

@@ -425,22 +425,22 @@ def receitas():
     connection = cdb.fconnecta()
     conf = config_db(connection)
     conf.config()
-    cursor = connection.cursor()
-    result = cursor.execute("SELECT * FROM conta ORDER BY conta.conta_nome;")
-    contas = result.fetchall()
+    # cursor = connection.cursor()
+    # result = cursor.execute("SELECT * FROM conta ORDER BY conta.conta_nome;")
+    # contas = result.fetchall()
     # test if value was passed in (e.g. GET method), default value is 1
-    selected = request.args.get('choice_categ', '1')
+    # selected = request.args.get('choice_categ', '1')
     # application 'state' variable with default value and test
-    state_categ = {'choice_categ': selected}
+    # state_categ = {'choice_categ': selected}
     # get bank statement from db
     if request.method == "POST" and request.form['action'] == 'GerarReceita':
         di = request.form.get('datai', False)
         df = request.form.get('dataf', False)
-        cc = request.form.get('conta', False)
+        # cc = request.form.get('conta', False)
         connection = cdb.fconnecta()
         conf = config_db(connection)
         conf.config()
-        income_count = genextratos(connection, cc, di, df)
+        income_count = genextratos(connection, 'NA', di, df)  # cc
         incom = income_count.incomes()
         if incom is not None:
             ls_inc = []
@@ -453,14 +453,15 @@ def receitas():
               '**  -------> TOTAL: $ ' + incom_tot, 'info')
 
         return render_template('receita.html',
-                               contas=contas,
-                               state_categ=state_categ,
+                               # contas=contas,
+                               # state_categ=state_categ,
                                incom=incom,
                                incom_tot=incom_tot)
     else:
         return render_template('receita.html',
-                               state_categ=state_categ,
-                               contas=contas)
+                               # state_categ=state_categ,
+                               # contas=contas
+                               )
 
 
 @app.route("/transferencias", methods=["GET", "POST"])

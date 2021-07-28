@@ -60,11 +60,11 @@ class genextratos:
             INNER JOIN subcategoria ON transacao.subcategoria_id=subcategoria.subcategoria_id
             INNER JOIN conta ON transacao.conta_id=conta.conta_id
             INNER JOIN tipo ON transacao.tipo_id=tipo.tipo_id
-            WHERE conta.conta_id=? AND data >=? AND data <=? AND transacao.tipo_id=2
+            WHERE data >=? AND data <=? AND transacao.tipo_id=2
             ORDER BY data ASC;
             """
             result = cursor.execute(
-                query, (self.nome, self.di, self.df,))
+                query, (self.di, self.df,))  # self.nome,
             row = result.fetchall()
             if row is not None:
                 print('Relatorio de RECEITAS gerado com sucesso')
