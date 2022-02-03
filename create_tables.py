@@ -156,7 +156,7 @@ class populate_tables:
             else:
                 ls_fill = ['imposto', 'moradia', 'outras_despesas',
                            'outras_receitas', 'pessoal', 'salario',
-                           'txbancaria', 'veiculo', 'viagem']
+                           'tx_bancaria', 'veiculo', 'viagem']
                 ls_fk = [1, 1, 1, 2, 1, 2, 1, 1, 1]
                 for i in range(len(ls_fill)):
                     ins = str("INSERT INTO categoria VALUES (NULL, '" +
